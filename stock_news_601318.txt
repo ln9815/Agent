@@ -1,0 +1,171 @@
+success<!-- 热点新闻模板 -->
+<div class="m_box post_news post clearfix" id="news" stat="news_news">
+	<div class="hd umt">
+		<h2>热点新闻</h2>
+		<a href="./mine.html" target="_self" class="fr more">更多&gt;&gt;</a>
+	</div>
+	<div class="bd clearfix">
+		<div class="newslist clearfix">
+													<dl>
+					<dt>
+						<a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250719/669753449.shtml" class="fl wid_ad client" target="_blank" title="中国平安：7月18日获融资买入2.29亿元，占当日流入资金比例为20.62%">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">中国平安：7月18日获融资买入2.29亿元，占当日流入资金比例为20.62%</strong>
+						</a>
+						<span class="fr date">[2025-07-19]</span>
+					</dt>
+					<dd class="hot_preview f14"><p>同花顺数据中心显示，中国平安7月18日获融资买入2.29亿元，占当日买入金额的20.62%，当前融资余额214.62亿元，占流通市值的3.49%，超过...</p></dd>
+				</dl>
+															<dl>
+					<dt>
+						<a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250719/669751826.shtml" class="fl wid_ad client" target="_blank" title="险资跑步进入大A超2000亿元，部分已进入了这些行业股票">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">险资跑步进入大A超2000亿元，部分已进入了这些行业股票</strong>
+						</a>
+						<span class="fr date">[2025-07-19]</span>
+					</dt>
+					<dd class="hot_preview f14"><p>在监管政策持续引导与利率下行的双重驱动下，保险资金正通过私募基金加速涌入资本市常记者查询中国证券投资基金业协会官网获悉，国丰兴...</p></dd>
+				</dl>
+															<dl>
+					<dt>
+						<a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250718/669738556.shtml" class="fl wid_ad client" target="_blank" title="配置高股息权益资产构建OCI账户 重塑险资投资逻辑优化资金结构">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">配置高股息权益资产构建OCI账户 重塑险资投资逻辑优化资金结构</strong>
+						</a>
+						<span class="fr date">[2025-07-18]</span>
+					</dt>
+					<dd class="hot_preview f14"><p>在低利率环境与非标资产缺失的“双重挤压”下，险资需围绕高分红权益资产、利率债等构建OCI组合，并通过技术升级与策略创新，在新准则...</p></dd>
+				</dl>
+															<ul class="news_lists lists_first">
+					<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250718/669736903.shtml" class="client" target="_blank" title="中国平安：2025年度长期服务计划暂无实施进展"><span>07/18</span> 中国平安：2025年度长期服务计划暂无实施进展</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250718/669736612.shtml" class="client" target="_blank" title="中国平安(7月18日)出现1笔大宗交易"><span>07/18</span> 中国平安(7月18日)出现1笔大宗交易</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250718/669730732.shtml" class="client" target="_blank" title="内险股涨幅居前 险资长期考核指标落地 南向通扩容有助于缓解资产端压力"><span>07/18</span> 内险股涨幅居前 险资长期考核指标落地 南向通扩容有助于缓解资产端压力</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250718/669730293.shtml" class="client" target="_blank" title="上市险企上半年保费收入稳健增长 新华保险同比增幅超两成"><span>07/18</span> 上市险企上半年保费收入稳健增长 新华保险同比增幅超两成</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250718/669728719.shtml" class="client" target="_blank" title="险资首次股权投资海上风电，平安为何坚定选择新能源赛道"><span>07/18</span> 险资首次股权投资海上风电，平安为何坚定选择新能源赛道</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250718/669724871.shtml" class="client" target="_blank" title="中国平安：7月17日获融资买入1.21亿元"><span>07/18</span> 中国平安：7月17日获融资买入1.21亿元</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250717/669706192.shtml" class="client" target="_blank" title="韩占武会见中国平安党委副书记、总经理兼联席首席执行官谢永林"><span>07/17</span> 韩占武会见中国平安党委副书记、总经理兼联席首席执行官谢永林</a></li>
+				</ul>
+															<ul class="news_lists">
+					<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250717/669706177.shtml" class="client" target="_blank" title="中国平安：把青少年“保险科技助农”教育公益课堂搬到“田间地头”"><span>07/17</span> 中国平安：把青少年“保险科技助农”教育公益课堂搬到“田间地头”</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250717/669700544.shtml" class="client" target="_blank" title="太保、新华、众安上半年保费收入公布，最高同比增长23%"><span>07/17</span> 太保、新华、众安上半年保费收入公布，最高同比增长23%</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250717/669697964.shtml" class="client" target="_blank" title="克孜勒苏监管分局同意平安产险克州支公司变更营业场所"><span>07/17</span> 克孜勒苏监管分局同意平安产险克州支公司变更营业场所</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250717/669692564.shtml" class="client" target="_blank" title="中国平安：7月16日获融资买入2.60亿元"><span>07/17</span> 中国平安：7月16日获融资买入2.60亿元</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250717/669687703.shtml" class="client" target="_blank" title="中国平安“三省工程”发布“享平安”客户权益体系"><span>07/17</span> 中国平安“三省工程”发布“享平安”客户权益体系</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250716/669670209.shtml" class="client" target="_blank" title="中国平安人寿及17名员工收20张行政处罚 合计被罚65万元"><span>07/16</span> 中国平安人寿及17名员工收20张行政处罚 合计被罚65万元</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_xxdl','nj':1})" href="http://news.10jqka.com.cn/field/20250716/669666259.shtml" class="client" target="_blank" title="中国平安郭晓涛：打造客户权益体系，让2.45亿客户拥有“好生活”"><span>07/16</span> 中国平安郭晓涛：打造客户权益体系，让2.45亿客户拥有“好生活”</a></li>
+										</ul>
+				</div>
+	</div>
+	<div class="ft"><div class="ftin"></div></div>
+</div>
+
+<!-- 公司公告模板 -->
+<div class="m_box comp_post post" id="pubs" stat="news_pubs">
+	<div class="hd umt">
+		<h2>公司公告</h2>
+		<a href="./pub.html" target="_self" class="fr more">更多&gt;&gt;</a>
+	</div>
+	<div class="bd clearfix">
+		<div class="newslist clearfix">
+											<ul class="news_lists lists_first">
+					<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250719/53291207.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安关于2025年度长期服务计划实施进展的公告"><span>07/19</span> 中国平安：中国平安关于2025年度长期服务计划实施进展的公告</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250703/53106871.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安H股公告"><span>07/03</span> 中国平安：中国平安H股公告</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250627/53011595.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安H股公告"><span>06/27</span> 中国平安：中国平安H股公告</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250620/52921337.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安2024年年度权益分派实施公告"><span>06/20</span> 中国平安：中国平安2024年年度权益分派实施公告</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250620/52921323.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安关于2025年度长期服务计划实施进展的公告"><span>06/20</span> 中国平安：中国平安关于2025年度长期服务计划实施进展的公告</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250620/52921327.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：平安证券股份有限公司关于中国平安保险(集团)股份有限公司差异化分红事项的核查意见"><span>06/20</span> 中国平安：平安证券股份有限公司关于中国平安保险(集团)股份有限公司差异化分红事项的核查意见</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250620/52921325.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安关于2025年度核心人员持股计划完成股票购买的公告"><span>06/20</span> 中国平安：中国平安关于2025年度核心人员持股计划完成股票购买的公告</a></li>
+				</ul>
+															<ul class="news_lists">
+					<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250612/52782343.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安关于H股可转换债券发行完成的公告"><span>06/12</span> 中国平安：中国平安关于H股可转换债券发行完成的公告</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250604/52622307.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安H股公告"><span>06/04</span> 中国平安：中国平安H股公告</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250604/52638609.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安关于拟根据一般性授权发行11,765,000,000港元于2030年到期的零息H股"><span>06/04</span> 中国平安：中国平安关于拟根据一般性授权发行11,765,000,000港元于2030年到期的零息H股</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250520/52424625.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安关于2025年度核心人员持股计划及2025年度长期服务计划购股进展的公告"><span>05/20</span> 中国平安：中国平安关于2025年度核心人员持股计划及2025年度长期服务计划购股进展的公告</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250514/52336817.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安关于注销回购股份并减少注册资本通知债权人的公告"><span>05/14</span> 中国平安：中国平安关于注销回购股份并减少注册资本通知债权人的公告</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250514/52336815.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安2024年年度股东会、2025年第一次A股类别股东会及2025年第一次H股类别股东"><span>05/14</span> 中国平安：中国平安2024年年度股东会、2025年第一次A股类别股东会及2025年第一次H股类别股东</a></li>
+																<li><a onclick="TA.log({'id':'f10_xwgg_gsgg','nj':1})" href="http://news.10jqka.com.cn/field/sn/20250514/52336811.shtml?ts=3&qs=3" class="client" target="_blank" title="中国平安：中国平安2024年年度股东会、2025年第一次A股类别股东会及2025年第一次H股类别股东"><span>05/14</span> 中国平安：中国平安2024年年度股东会、2025年第一次A股类别股东会及2025年第一次H股类别股东</a></li>
+										</ul>
+		</div>
+	</div>
+	<div class="ft"><div class="ftin"></div></div>
+</div>
+
+<!-- 相关研报模板 -->
+<div class="m_box clearfix subnews" id="report" stat="news_report">
+	<div class="hd">
+		<h2 class="fl">相关研报</h2>
+		<a href="./reports.html" target="_self" class="fr more">更多&gt;&gt;</a>
+	</div>
+	<div class="bd">
+		<div class="m_dlbox">
+						<dl>
+				<dt>
+					<span class="title">
+						<a onclick="TA.log({'id':'f10_xwgg_xgyb','nj':1})" class="client" href="http://news.10jqka.com.cn/field/sr/20250711/53225215.shtml?ts=3&qs=4" target="_blank" title="保险行业周报：非车险“报行合一”在即，行业格局预计进一步优化">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">保险行业周报：非车险“报行合一”在即，行业格局预计进一步优化</strong>
+						</a>
+					</span>
+					<span class="date">2025-07-11</span>
+				</dt>
+			</dl>
+						<dl>
+				<dt>
+					<span class="title">
+						<a onclick="TA.log({'id':'f10_xwgg_xgyb','nj':1})" class="client" href="http://news.10jqka.com.cn/field/sr/20250629/53050379.shtml?ts=3&qs=4" target="_blank" title="保险行业周报：风偏上行催化板块行情，看好负债端经营质量改善趋势">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">保险行业周报：风偏上行催化板块行情，看好负债端经营质量改善趋势</strong>
+						</a>
+					</span>
+					<span class="date">2025-06-29</span>
+				</dt>
+			</dl>
+						<dl>
+				<dt>
+					<span class="title">
+						<a onclick="TA.log({'id':'f10_xwgg_xgyb','nj':1})" class="client" href="http://news.10jqka.com.cn/field/sr/20250627/53020595.shtml?ts=3&qs=4" target="_blank" title="观点深度更新：新法新班底，欠配高股息">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">观点深度更新：新法新班底，欠配高股息</strong>
+						</a>
+					</span>
+					<span class="date">2025-06-27</span>
+				</dt>
+			</dl>
+						<dl>
+				<dt>
+					<span class="title">
+						<a onclick="TA.log({'id':'f10_xwgg_xgyb','nj':1})" class="client" href="http://news.10jqka.com.cn/field/sr/20250626/52997703.shtml?ts=3&qs=4" target="_blank" title="“金融航母”穿越周期：生态共赢、AI领航">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">“金融航母”穿越周期：生态共赢、AI领航</strong>
+						</a>
+					</span>
+					<span class="date">2025-06-26</span>
+				</dt>
+			</dl>
+						<dl>
+				<dt>
+					<span class="title">
+						<a onclick="TA.log({'id':'f10_xwgg_xgyb','nj':1})" class="client" href="http://news.10jqka.com.cn/field/sr/20250626/52997819.shtml?ts=3&qs=4" target="_blank" title="寻找中国保险的Alpha系列之二：成本下行，利差改善与价值重估">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">寻找中国保险的Alpha系列之二：成本下行，利差改善与价值重估</strong>
+						</a>
+					</span>
+					<span class="date">2025-06-26</span>
+				</dt>
+			</dl>
+						<dl>
+				<dt>
+					<span class="title">
+						<a onclick="TA.log({'id':'f10_xwgg_xgyb','nj':1})" class="client" href="http://news.10jqka.com.cn/field/sr/20250613/52885433.shtml?ts=3&qs=4" target="_blank" title="保险行业周报：部分险企2026年可暂缓执行新准则，准则切换或持续利好OCI类股票">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">保险行业周报：部分险企2026年可暂缓执行新准则，准则切换或持续利好OCI类股票</strong>
+						</a>
+					</span>
+					<span class="date">2025-06-13</span>
+				</dt>
+			</dl>
+						<dl>
+				<dt>
+					<span class="title">
+						<a onclick="TA.log({'id':'f10_xwgg_xgyb','nj':1})" class="client" href="http://news.10jqka.com.cn/field/sr/20250613/52849633.shtml?ts=3&qs=4" target="_blank" title="外资抢筹、公募回补，三重引擎驱动平安“王者归来”">
+							<strong style="font-size:14px;font-weight:400;font-style:normal">外资抢筹、公募回补，三重引擎驱动平安“王者归来”</strong>
+						</a>
+					</span>
+					<span class="date">2025-06-13</span>
+				</dt>
+			</dl>
+					</div>
+	</div>
+	<div class="ft"></div>
+</div>

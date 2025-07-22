@@ -47,7 +47,6 @@ coverage.xml
 
 # Jupyter Notebook
 .ipynb_checkpoints
-.ipynb
 
 # Spyder project settings
 .spyderproject
@@ -59,4 +58,17 @@ coverage.xml
 # 第三方库依赖文件，通常通过 requirements.txt 管理
 # 如果使用 poetry，添加以下内容
 # poetry.lock
-#.venv
+.venv
+
+# 日志文件
+logs/
+*.log
+*.log.*
+
+# 缓存文件
+.cache/
+*.cache
+*.pycache__/
+
+# ipynb文件
+.ipynb

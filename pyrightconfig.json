@@ -1,0 +1,6 @@
+{
+    "reportOptionalMemberAccess":"none",
+    "reportAttributeAccessIssue": "none",
+    "reportCallIssue":"none",
+    "reportOptionalSubscript":"none"
+}

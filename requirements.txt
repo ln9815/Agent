@@ -1,0 +1,7 @@
+pandas
+appdirs
+fastapi
+fastmcp
+requests
+dotenv
+bs4
