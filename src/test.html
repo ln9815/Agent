@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ECharts K线图示例</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        .chart-container {
+            width: 100%;
+            height: 500px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container" id="kline-chart"></div>
+
+    <script>
+        // 初始化图表
+        const chartDom = document.getElementById('kline-chart');
+        const myChart = echarts.init(chartDom);
+        let option;
+
+        // 模拟K线数据 (实际应用中应从API获取)
+        function getKlineData() {
+            const dates = [];
+            const values = [];
+            const now = new Date();
+            
+            // 生成30天的模拟数据
+            for (let i = 30; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(now.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                dates.push(dateStr);
+                
+                // 生成随机价格数据
+                const basePrice = 100;
+                const open = basePrice + Math.random() * 20 - 10;
+                const close = open + Math.random() * 10 - 5;
+                const low = Math.min(open, close) - Math.random() * 5;
+                const high = Math.max(open, close) + Math.random() * 5;
+                
+                values.push([dateStr, open.toFixed(2), close.toFixed(2), low.toFixed(2), high.toFixed(2)]);
+            }
+            
+            return { dates, values };
+        }
+
+        // 获取数据
+        const { dates, values } = getKlineData();
+
+        // 配置图表选项
+        option = {
+            title: {
+                text: '股票K线图',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                },
+                backgroundColor: 'rgba(245, 245, 245, 0.8)',
+                borderWidth: 1,
+                borderColor: '#ccc',
+                padding: 10,
+                textStyle: {
+                    color: '#000'
+                },
+                formatter: function (params) {
+                    const param = params[0];
+                    return [
+                        `日期: ${param.name}`,
+                        `开盘: ${param.data[1]}`,
+                        `收盘: ${param.data[2]}`,
+                        `最低: ${param.data[3]}`,
+                        `最高: ${param.data[4]}`
+                    ].join('<br/>');
+                }
+            },
+            xAxis: {
+                type: 'category',
+                data: dates,
+                boundaryGap: false,
+                axisLine: { onZero: false },
+                splitLine: { show: true },
+                splitNumber: 20,
+                min: 'dataMin',
+                max: 'dataMax'
+            },
+            yAxis: {
+                scale: true,
+                splitArea: {
+                    show: true
+                }
+            },
+            series: [
+                {
+                    name: 'K线',
+                    type: 'candlestick',
+                    data: values,
+                    itemStyle: {
+                        color: '#ef233c',
+                        color0: '#22c55e',
+                        borderColor: '#ef233c',
+                        borderColor0: '#22c55e'
+                    }
+                }
+            ]
+        };
+
+        // 设置图表选项
+        option && myChart.setOption(option);
+
+        // 窗口大小变化时重绘图表
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+    </script>
+</body>
+</html>

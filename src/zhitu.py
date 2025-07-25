@@ -9,8 +9,8 @@ from datetime import datetime, timedelta
 import os
 import json
 import glob
-from indicators import add_technical_indicators
-from util import setup_logging
+from src.indicators import add_technical_indicators
+from src.util import setup_logging
 
 
 logger = logging.getLogger(__name__)
@@ -784,7 +784,7 @@ if __name__ == "__main__":
     # data = api.get_stock_basic_info(stock_code)
     # logger.debug(data)
     # logger.info(f'股票信息：\n{api.get_stock_basic_info(stock_code)}')
-    # logger.info(f'实时交易数据：\n{api.get_stock_real_transcation(stock_code)}')
+    logger.info(f'实时交易数据：\n{api.get_stock_real_transcation(stock_code)}')
     # data = api.get_stock_real_transcation(stock_code)
     # logger.debug(data)
     data = api.get_stock_latest_transcation(stock_code,period='15')

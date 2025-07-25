@@ -1,5 +1,5 @@
 from fastmcp import FastMCP
-from zhitu import ZhituApi,setup_logging
+from src.zhitu import ZhituApi,setup_logging
 import os
 from dotenv import load_dotenv
 
@@ -75,7 +75,7 @@ async def get_stock_news(
     code: str
 ):
     """获取个股新闻"""
-    from thx import TxhApi
+    from src.thx import TxhApi
     api = TxhApi(code)
     return api.get_stock_news_list()
     

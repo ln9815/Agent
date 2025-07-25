@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastmcp import FastMCP
 from starlette.routing import Mount
-from zhitu import ZhituApi,setup_logging
+from src.zhitu import ZhituApi,setup_logging
 import logging
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
