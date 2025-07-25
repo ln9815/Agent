@@ -4,5 +4,7 @@
     "reportCallIssue":"none",
     "reportOptionalSubscript":"none",
     "reportOperatorIssue": "none",
-    "reportArgumentType": "none"
+    "reportArgumentType": "none",
+    "reportReturnType": "none",
+    "reportOptionalIterable": "none"
 }

@@ -5,7 +5,7 @@ logger = logging.getLogger(__name__)
 
 def setup_logging(log_file, level=logging.DEBUG):
     """配置日志记录，同时输出到控制台和文件"""
-    log_dir = os.path.join(os.path.dirname(__file__), "logs")
+    log_dir = os.path.join(os.getcwd(), "logs")
     
     os.makedirs(log_dir, exist_ok=True)
     log_file = os.path.join(log_dir, log_file)
