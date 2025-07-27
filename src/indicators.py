@@ -6,11 +6,11 @@ def add_technical_indicators(data, price_col='c'):
     在原始数据列表中添加技术指标
     
     参数:
-    data: list of dict, 必须包含 't'(时间), 'o'(开盘价), 'h'(最高价), 'l'(最低价), 'c'(收盘价)
+    data: list of dict 或 DataFrame, 必须包含 't'(时间), 'o'(开盘价), 'h'(最高价), 'l'(最低价), 'c'(收盘价)
     price_col: str, 计算指标使用的价格列名，默认使用收盘价'c'
     
     返回:
-    添加技术指标后的list of dict
+    添加技术指标后的DataFrame
     """
     
     def calculate_ma(prices, period):
@@ -39,7 +39,10 @@ def add_technical_indicators(data, price_col='c'):
         delta = pd.Series(prices).diff()
         gain = (delta.where(delta > 0, 0)).rolling(window=period).mean().round(2) # type: ignore
         loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean().round(2) # type: ignore
-        rs = gain / loss.replace(to_replace=0, method='ffill') # type: ignore
+        pd.set_option('future.no_silent_downcasting', True)
+        filled_loss = loss.replace(to_replace=0, value=pd.NA).ffill()
+        filled_loss = filled_loss.infer_objects()
+        rs = gain / filled_loss  # type: ignore
         return (100 - (100 / (1 + rs))).round(2)
 
     def calculate_kdj(high, low, close, n=9):
@@ -65,9 +68,21 @@ def add_technical_indicators(data, price_col='c'):
         return k, d, j
 
     # 转换为DataFrame
-    df = pd.DataFrame(data)
-
+    df = pd.DataFrame(data) if not isinstance(data, pd.DataFrame) else data.copy()
+    
+    # 处理前一日收盘价(pc)列
+    if 'pc' not in df.columns:
+        # 如果不存在pc列，则使用前一天的收盘价作为pc
+        df['pc'] = df[price_col].shift(1)
+        # 第一天的pc用当天的开盘价填充（如果没有前一天数据）
+        # df['pc'].fillna(df['o'], inplace=True)
+        df['pc'] = df['pc'].fillna(df['o'])
+        # df['pc'] = df['pc'].infer_objects()
+    
     prices = df[price_col]
+    
+    # 计算涨跌幅（基于前一日收盘价pc）
+    df['PCT_CHANGE'] = ((df[price_col] - df['pc']) / df['pc'] * 100).round(2)
     
     # 添加MA
     df['MA5'] = calculate_ma(prices, 5)
@@ -86,20 +101,17 @@ def add_technical_indicators(data, price_col='c'):
     # 添加KDJ
     df['K'], df['D'], df['J'] = calculate_kdj(df['h'], df['l'], df[price_col])
     
-    # 转换回list of dict
-    result = df.to_dict('records')
-    
-    return result
+    return df
 
 # 使用示例：
 if __name__ == "__main__":
-    # 测试数据
+    # 测试数据（不含pc列）
     test_data = [
-        {"t": "2023-01-01", "o": 100.0, "h": 102.0, "l": 99.0, "c": 101.0, "v": 10000, "a": 1010000, "pc": 99.5},
-        {"t": "2023-01-02", "o": 101.0, "h": 103.0, "l": 100.0, "c": 102.0, "v": 12000, "a": 1224000, "pc": 101.0},
-        {"t": "2023-01-03", "o": 102.0, "h": 104.0, "l": 101.0, "c": 103.0, "v": 11000, "a": 1133000, "pc": 102.0},
-        {"t": "2023-01-04", "o": 103.0, "h": 105.0, "l": 102.0, "c": 104.0, "v": 13000, "a": 1352000, "pc": 103.0},
-        {"t": "2023-01-05", "o": 104.0, "h": 106.0, "l": 103.0, "c": 105.0, "v": 14000, "a": 1470000, "pc": 104.0},
+        {"t": "2023-01-01", "o": 100.0, "h": 102.0, "l": 99.0, "c": 101.0, "v": 10000, "a": 1010000},
+        {"t": "2023-01-02", "o": 101.0, "h": 103.0, "l": 100.0, "c": 102.0, "v": 12000, "a": 1224000},
+        {"t": "2023-01-03", "o": 102.0, "h": 104.0, "l": 101.0, "c": 103.0, "v": 11000, "a": 1133000},
+        {"t": "2023-01-04", "o": 103.0, "h": 105.0, "l": 102.0, "c": 104.0, "v": 13000, "a": 1352000},
+        {"t": "2023-01-05", "o": 104.0, "h": 106.0, "l": 103.0, "c": 105.0, "v": 14000, "a": 1470000},
     ]
     
     # 添加技术指标
