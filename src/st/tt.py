@@ -11,7 +11,7 @@ from plotly.subplots import make_subplots
 import numpy as np
 from datetime import datetime
 import os
-from thx import ThxApi
+from thx.thx_tool import ThxApi
 from typing import Optional, Dict, List, Any
 
 # 配置日志

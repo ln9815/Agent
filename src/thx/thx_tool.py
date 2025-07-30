@@ -1,15 +1,13 @@
 import pandas as pd
-from datetime import datetime, time
 import requests
 import logging
 import re
 import json
 from typing import List, Dict, Any, Optional, Tuple
-import pprint
-from ta import caculate_ta, resample_df
-from thx_helper import extract_json_from_js, process_stock_data_all,process_stock_data_last
-from thx_helper import parse_hot_news,parse_report_links,parse_announcements
-from thx_helper import convert_datetime
+from tool.ta import caculate_ta, resample_df
+from thx.thx_helper import extract_json_from_js, process_stock_data_all,process_stock_data_last
+from thx.thx_helper import parse_hot_news,parse_report_links,parse_announcements
+from thx.thx_helper import convert_datetime
 
 
 # 配置日志
@@ -67,7 +65,7 @@ class ThxApi:
     
     def _get_stock_latest_info(self) -> Dict[str, Any]:
         """获取股票最新信息"""
-        from thx_helper import STOCK_VAR_MAP
+        from thx.thx_helper import STOCK_VAR_MAP
 
         url = f'{BASE_URL}/v6/realhead/{self.full_code}/defer/last.js'
         response = self._make_request(url)
@@ -137,7 +135,6 @@ class ThxApi:
             all_items = news_items + reports + announcements
 
             df = pd.DataFrame(all_items)
-            from thx_helper import convert_datetime
             df['publish_date'] = df['publish_date'].apply(convert_datetime)
             df['publish_date'] = pd.to_datetime(df['publish_date'])
 
@@ -154,7 +151,7 @@ class ThxApi:
     
     def _get_financial_data(self) -> Dict[str, str]:
         """获取股票财务数据"""
-        from thx_helper import parse_financial_data
+        from thx.thx_helper import parse_financial_data
         code = self.code.split('_')[-1] if '_' in self.code else self.code
         url = f'{STOCK_PAGE_URL}/{code}/'
         response = self._make_request(url)
@@ -237,14 +234,14 @@ class ThxApi:
 def main():
     """主函数示例"""
     # try:
-    from util import setup_logging
+    from tool.util import setup_logging
     setup_logging(log_file='txh.log')
     
     # 测试不同的股票代码格式
     test_codes = [
         # 'HK2018',
         'HK0981',
-        # '600519',
+        '600519',
         # '000001'
     ]
     
@@ -259,7 +256,7 @@ def main():
 
         # 获取个股基本信息
         info = api.basic_info()
-        logger.info(f'获取到最新信息:\n{info}')
+        logger.info(f'获取到基本信息:\n{info}')
         
         # 获取新闻
         news_list = api.news()

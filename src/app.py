@@ -1,8 +1,8 @@
 from fastmcp import FastMCP
-from zhitu import ZhituApi,setup_logging
+from zhitu.zhitu import ZhituApi,setup_logging
 import os
 from dotenv import load_dotenv
-from thx import ThxApi
+from thx.thx_tool import ThxApi
 
 load_dotenv()
 TOKEN = os.getenv('ZHITU_TOKEN')
@@ -76,7 +76,7 @@ async def get_stock_news(
     code: str
 ):
     """获取个股新闻"""
-    from src.thx import TxhApi
+    from thx.thx_tool import TxhApi
     api = TxhApi(code)
     return api.get_stock_news_list()
     

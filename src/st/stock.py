@@ -8,7 +8,7 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 import os
 import json
-from thx import ThxApi
+from thx.thx_tool import ThxApi
 from typing import Optional, Dict, List, Any
 
 # 常量定义
