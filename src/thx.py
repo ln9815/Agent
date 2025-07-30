@@ -244,7 +244,7 @@ def main():
     test_codes = [
         # 'HK2018',
         'HK0981',
-        '600519',
+        # '600519',
         # '000001'
     ]
     
@@ -270,7 +270,7 @@ def main():
         logger.info(f'获取到最新数据 {len(latest_data)} 条记录:\n{pd.DataFrame(latest_data).tail(10)}')
         
         # 获取所有历史数据
-        all_data = api.history('m',20)
+        all_data = api.history('d',90)
         logger.info(f"获取到历史数据{len(all_data)} 条记录:\n{pd.DataFrame(all_data).tail(10)}")
 
 if __name__ == '__main__':
