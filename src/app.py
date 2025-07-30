@@ -1,7 +1,8 @@
 from fastmcp import FastMCP
-from src.zhitu import ZhituApi,setup_logging
+from zhitu import ZhituApi,setup_logging
 import os
 from dotenv import load_dotenv
+from thx import ThxApi
 
 load_dotenv()
 TOKEN = os.getenv('ZHITU_TOKEN')
@@ -158,6 +159,42 @@ async def get_stock_code_name(
 ):
     """获取股票代码和名称"""
     return api.get_stock_code_name(code_or_name)
+
+@mcp.tool
+async def stock_info(
+    code: str
+):
+    """获取股票基本信息"""
+    thx =ThxApi(code)
+    return thx.basic_info()
+
+@mcp.tool
+async def stock_news(
+    code: str,
+    count: int = 10
+):
+    """获取股票新闻"""
+    thx =ThxApi(code)
+    return thx.news(count)
+
+@mcp.tool
+async def stock_last(
+    code: str,
+    period: str = '5m'
+):
+    """获取股票最新数据"""
+    thx =ThxApi(code)
+    return thx.last(period)
+
+@mcp.tool
+async def stock_history(
+    code: str,
+    period: str = 'd',
+    count: int = 90
+):
+    """获取股票历史数据"""
+    thx =ThxApi(code)
+    return thx.history(period,count)
 
 if __name__ == "__main__":
     # mcp.run(transport='sse')

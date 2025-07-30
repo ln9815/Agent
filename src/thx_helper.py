@@ -9,7 +9,7 @@ import re
 logger = logging.getLogger(__name__)
 
 DEFAULT_TRADING_HOURS = "0930-1200,1300-1610"
-DEFAULT_PRICE_FACTOR = 1000  # 默认价格因子
+DEFAULT_PRICE_FACTOR = 1  # 默认价格因子
 PERIOD_MAP = {
     '5m': '5min',
     '15m': '15min',
@@ -63,9 +63,6 @@ def extract_json_from_js(js_str: str) -> Optional[Dict]:
 
 def process_stock_data_all(data: Dict[str, Any]) -> List[Dict[str, Any]]:
     """处理市场数据，将日期、价格和成交量合并为统一格式"""
-    if not isinstance(data, dict):
-        raise TypeError("数据必须是字典类型")
-        
     required_fields = ["dates", "price", "volumn", "sortYear"]
     if not all(key in data for key in required_fields):
         raise ValueError(f"数据缺少必需字段: {required_fields}")
@@ -102,10 +99,10 @@ def process_stock_data_all(data: Dict[str, Any]) -> List[Dict[str, Any]]:
             try:
                 base_price = float(group[0]) / price_factor
                 prices.append({
-                    "o": base_price + float(group[1]) / price_factor,  # 开盘价
-                    "c": base_price + float(group[3]) / price_factor,  # 收盘价
-                    "h": base_price + float(group[2]) / price_factor,  # 最高价
-                    "l": base_price  # 最低价
+                    "open": base_price + float(group[1]) / price_factor,  # 开盘价
+                    "close": base_price + float(group[3]) / price_factor,  # 收盘价
+                    "high": base_price + float(group[2]) / price_factor,  # 最高价
+                    "low": base_price  # 最低价
                 })
             except (ValueError, IndexError) as e:
                 logger.warning(f"处理价格数据时出错: {e}")
@@ -122,8 +119,8 @@ def process_stock_data_all(data: Dict[str, Any]) -> List[Dict[str, Any]]:
             
         return [
             {
-                "t": dates[i],
-                "v": volumes[i],
+                "date": dates[i],
+                "volume": volumes[i],
                 **prices[i]
             }
             for i in range(min_length)
@@ -159,12 +156,12 @@ def process_stock_data_last(data: Dict[str, Any]) -> List[Dict[str, Any]]:
                     formatted_time = time_str
                 
                 prices.append({
-                    "t": f'{date_str} {formatted_time}',
-                    "o": float(group[1]),
-                    "c": float(group[1]),
-                    "h": float(group[1]),
-                    "l": float(group[1]),
-                    "v": float(group[4]),
+                    "date": f'{date_str} {formatted_time}',
+                    "open": float(group[1]),
+                    "close": float(group[1]),
+                    "high": float(group[1]),
+                    "low": float(group[1]),
+                    "volume": float(group[4]),
                 })
             except (ValueError, IndexError) as e:
                 logger.warning(f"处理最新数据时出错: {e}")
@@ -174,107 +171,6 @@ def process_stock_data_last(data: Dict[str, Any]) -> List[Dict[str, Any]]:
     except Exception as e:
         logger.error(f"处理最新股票数据时出错: {e}")
         return []
-
-def parse_trading_hours(trading_hours: str = DEFAULT_TRADING_HOURS) -> List[Tuple[time, time]]:
-    """解析交易时间字符串为时间范围列表"""
-    if not trading_hours:
-        return []
-        
-    time_ranges = []
-    for period in trading_hours.split(','):
-        try:
-            start_str, end_str = period.strip().split('-')
-            if len(start_str) != 4 or len(end_str) != 4:
-                logger.warning(f"时间格式错误: {period}")
-                continue
-                
-            start_time = time(int(start_str[:2]), int(start_str[2:]))
-            end_time = time(int(end_str[:2]), int(end_str[2:]))
-            time_ranges.append((start_time, end_time))
-        except (ValueError, IndexError) as e:
-            logger.warning(f"无效的时间段格式: {period}, 错误: {e}")
-            
-    return time_ranges
-
-def resample_with_trading_hours(
-    df: pd.DataFrame, 
-    period: str, 
-    trading_periods: str = DEFAULT_TRADING_HOURS
-) -> pd.DataFrame:
-    """在交易时间内严格重新采样数据"""
-    # 输入验证
-    if not isinstance(df, pd.DataFrame):
-        raise TypeError("输入必须是pandas DataFrame")
-    
-    if df.empty:
-        return pd.DataFrame()
-    
-    if 't' not in df.columns:
-        raise ValueError("DataFrame必须包含't'列作为时间戳")
-    
-    period = period.lower()
-    if period not in PERIOD_MAP:
-        raise ValueError(f"无效的周期: {period}. 有效选项: {list(PERIOD_MAP.keys())}")
-    
-    try:
-        # 准备数据
-        df_copy = df.copy()
-        df_copy['t'] = pd.to_datetime(df_copy['t'])
-        df_copy = df_copy.set_index('t').sort_index()
-        
-        # 检查必要的列
-        required_columns = {'o', 'h', 'l', 'c', 'v'}
-        missing_columns = required_columns - set(df_copy.columns)
-        if missing_columns:
-            raise ValueError(f"DataFrame缺少必要的列: {missing_columns}")
-        
-        # 分钟级别重采样需要交易时间
-        if period in ('5', '15', '20', '30'):
-            if not trading_periods:
-                raise ValueError("分钟级重采样需要交易时间段")
-            
-            # 解析交易时间
-            time_ranges = parse_trading_hours(trading_periods)
-            if not time_ranges:
-                raise ValueError("无效的交易时间格式")
-            
-            result = pd.DataFrame()
-            
-            # 按交易时间段处理
-            for start_time, end_time in time_ranges:
-                mask = (df_copy.index.time >= start_time) & (df_copy.index.time <= end_time)
-                period_df = df_copy[mask]
-                
-                if not period_df.empty:
-                    resampled = period_df.resample(PERIOD_MAP[period]).agg({
-                        'o': 'first',
-                        'h': 'max',
-                        'l': 'min',
-                        'c': 'last',
-                        'v': 'sum'
-                    })
-                    result = pd.concat([result, resampled])
-            
-            # 重置索引以包含时间戳列
-            result = result.reset_index()
-            return result.dropna()
-        
-        # 日、周、月、年级别重采样
-        resampled = df_copy.resample(PERIOD_MAP[period]).agg({
-            'o': 'first',
-            'h': 'max',
-            'l': 'min',
-            'c': 'last',
-            'v': 'sum'
-        }).dropna()
-        
-        # 重置索引以包含时间戳列
-        resampled = resampled.reset_index()
-        return resampled
-        
-    except Exception as e:
-        logger.error(f"重采样数据时出错: {e}")
-        return pd.DataFrame()
 
 def parse_report_links(html_content: str) -> List[Dict[str, Any]]:
     """Parse HTML content to extract related research report links and titles."""
@@ -409,84 +305,33 @@ def parse_financial_data(html_content: str) -> Dict[str, str]:
         print("警告: dt和dd标签数量不匹配")
     
     return financial_data
-from datetime import datetime, date
-import re
 
-import re
-from datetime import datetime
-
-def format_date(date_str):
-    current_year = datetime.now().year
-    current_date = datetime.now().date()
+def convert_datetime(time_str:str)->datetime:
+    '''
+    转换时间字符串为datetime对象
+    '''
+    from datetime import datetime
+    current_year,current_month, current_day= datetime.now().year,datetime.now().month,datetime.now().day
     
-    # Check if the string contains a 4-digit year
-    if re.search(r'\d{4}', date_str):
-        # Extract date part only (remove time if present)
-        parts = re.split(r'[\sT]', date_str, 1)
-        return parts[0]  # Return the first part (date portion)
+    # 处理三种格式
+    if ' ' in time_str:  # 格式 "07-30 19:21"
+        date_part, time_part = time_str.split(' ')
+        month, day = map(int, date_part.split('-'))
+        hour, minute = map(int, time_part.split(':'))
+    elif '/' in time_str:  # 格式 "07/31"
+        month, day = map(int, time_str.split('/'))
+        hour, minute = 0, 0
+    elif '-' in time_str and len(time_str) == 10:  # 格式 "2025-06-09"
+        _, month, day = time_str.split('-')
+        month, day = int(month), int(day)
+        hour, minute = 0, 0
+    else:
+        raise ValueError("Unsupported time format")
     
-    # Define month name/abbreviation mappings
-    month_names = {
-        'jan': 1, 'january': 1,
-        'feb': 2, 'february': 2,
-        'mar': 3, 'march': 3,
-        'apr': 4, 'april': 4,
-        'may': 5, 'jun': 6, 'june': 6,
-        'jul': 7, 'july': 7, 'aug': 8, 
-        'august': 8, 'sep': 9, 'september': 9,
-        'oct': 10, 'october': 10,
-        'nov': 11, 'november': 11,
-        'dec': 12, 'december': 12
-    }
+    # 判断年份：如果月日大于当前月日，则用上一年
+    if (month, day) > (current_month, current_day):
+        year = current_year - 1
+    else:
+        year = current_year
     
-    # Remove time part to avoid interfering with date parsing
-    time_match = re.search(r'(\d{1,2}:\d{1,2}(:\d{1,2})?)', date_str)
-    if time_match:
-        time_part = time_match.group(1)
-        date_str = date_str.replace(time_part, '').strip()
-        if date_str.endswith(('-', '/', ' ')):
-            date_str = date_str[:-1]
-    
-    # Attempt to match common date formats
-    # Format 1: MM/DD or MM-DD (US)
-    match = re.match(r'(\d{1,2})[-/](\d{1,2})$', date_str)
-    if match:
-        month = int(match.group(1))
-        day = int(match.group(2))
-        if 1 <= month <= 12 and 1 <= day <= 31:
-            return _process_datetime(month, day, current_year, current_date)
-    
-    # Format 2: DD/MM or DD-MM (European)
-    match = re.match(r'(\d{1,2})[-/](\d{1,2})$', date_str)
-    if match:
-        day = int(match.group(1))
-        month = int(match.group(2))
-        if 1 <= month <= 12 and 1 <= day <= 31:
-            if month > 12 or (month == 12 and day > 31):
-                return _process_datetime(month, day, current_year, current_date)
-    
-    # Format 3: MonthName-DD (e.g., "Jan-01")
-    match = re.match(r'([a-zA-Z]+)[-/](\d{1,2})$', date_str)
-    if match:
-        month_name = match.group(1).lower()
-        day = int(match.group(2))
-        if month_name in month_names:
-            month = month_names[month_name]
-            return _process_datetime(month, day, current_year, current_date)
-    
-    # Return original string if no format matches
-    return date_str
-
-def _process_datetime(month, day, current_year, current_date):
-    """Generate a date string in YYYY-MM-DD format (time discarded)."""
-    try:
-        # Create a date object for comparison
-        temp_date = datetime(current_year, month, day).date()
-        if temp_date <= current_date:
-            return temp_date.strftime('%Y-%m-%d')
-        else:
-            # Use previous year if date is in the future
-            return datetime(current_year - 1, month, day).strftime('%Y-%m-%d')
-    except ValueError:
-        # Handle invalid dates (e.g., February 30)
-        return f"{current_year}-{month:02d}-{day:02d}"
+    return datetime.strptime(f"{year:04d}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}", "%Y-%m-%d %H:%M")

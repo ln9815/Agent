@@ -6,5 +6,6 @@
     "reportOperatorIssue": "none",
     "reportArgumentType": "none",
     "reportReturnType": "none",
-    "reportOptionalIterable": "none"
+    "reportOptionalIterable": "none",
+    "reportTypedDictNotRequiredAccess": "none"
 }
