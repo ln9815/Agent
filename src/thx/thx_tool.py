@@ -162,31 +162,38 @@ class ThxApi:
             return financial_data
         return {}
     
-    def makert(self):
-        '''获取A股大盘交易评级'''
-        def level_name(score):
-            if(score < 2.5):
-                return '大盘风险极大，请勿参与'
-            elif (score >= 2.5 and score < 4):
-                return '大盘风险较大，请谨慎参与'
-            elif (score >= 4 and score < 6):
-                return '大盘震荡，适当参与'
-            elif (score >= 6 and score < 8):
-                return '大盘走势良好，积极参与'
-            elif (score >= 8):
-                return '大盘走势极好，积极参与'
+    def makert_hq(self):
+        '''获取A股大盘行情'''
+        return self._market_hs() if self.makert == 'hs' else self._market_hk()
 
-        url = 'https://q.10jqka.com.cn/api.php?t=indexflash&'
-        cookies = {'v': 'A6eYRyoggzYYLQe6to35ccgYMNBxLHsO1QD_gnkUwzZdaMkagfwLXuXQj9SK'}
-        hd = {'Referer': 'https://q.10jqka.com.cn/','host':'q.10jqka.com.cn'}
-        response = self._make_request(url,headers=hd,cookies=cookies)
-        data = response.json()
-        return {
-            '大盘评分(满分:10)':data['dppj_data'],
-            '大盘评级':level_name(data['dppj_data']),
-            '股票数(涨)':data['zdfb_data']['znum'],
-            '股票数(跌)':data['zdfb_data']['dnum'],
-        }
+    def _market_hs(self):
+        '''获取沪深大盘指数 '''
+        from thx.thx_helper import extract_stock_data_hs
+        codes  = ('1A0001','399001','399300','399006')
+        return[ extract_stock_data_hs(self._make_request(f'https://q.10jqka.com.cn/zs/detail/code/{code}/')) for code in codes]
+    
+    def _market_hk(self):
+        '''获取港股大盘指数'''
+        def get_last(code):
+            url = f"{BASE_URL}/v6/time/{code}/last.js"
+            respnse = self._make_request(url)
+            data = extract_json_from_js(respnse.text)[code]
+            all_data = process_stock_data_last(data)
+            high = pd.DataFrame(all_data)['close'].max()
+            low = pd.DataFrame(all_data)['close'].min()
+            hq = {
+                '指数名称':data['name'],
+                '指数代码':code,
+                '昨收': float(data['pre']),
+                '今开': float(all_data[0]['open']),
+                '今收': float(all_data[-1]['close']),
+                '最高价': float(high),
+                '最低价': float(low),
+            }
+            hq.update({'涨跌':round(hq['今收']-hq['昨收'],2),'涨跌幅':f'{((hq['今收']-hq['昨收'])/hq['昨收'])*100:.2f}%'})
+            return hq
+        codes = ['hk_HSI','hk_HSCEI','hk_HSCCI']
+        return [get_last(code) for code in codes]
     
     def basic_info(self):
         '''获取股票基本信息'''
@@ -240,7 +247,7 @@ def main():
     # 测试不同的股票代码格式
     test_codes = [
         # 'HK2018',
-        'HK0981',
+        # 'HK0981',
         '600519',
         # '000001'
     ]
@@ -251,24 +258,24 @@ def main():
         api = ThxApi(stock_code)
 
         # 获取大盘信息
-        # market_info = api.makert()
-        # logger.info(f'获取到大盘信息:\n{market_info}')
+        market_info = api.makert_hq()
+        logger.info(f'获取到大盘信息:\n{market_info}')
 
-        # 获取个股基本信息
-        info = api.basic_info()
-        logger.info(f'获取到基本信息:\n{info}')
+        # # 获取个股基本信息
+        # info = api.basic_info()
+        # logger.info(f'获取到基本信息:\n{info}')
         
-        # 获取新闻
-        news_list = api.news()
-        logger.info(f'获取到新闻 {len(news_list)} 条.\n{pd.DataFrame(news_list).tail(10)}')
+        # # 获取新闻
+        # news_list = api.news()
+        # logger.info(f'获取到新闻 {len(news_list)} 条.\n{pd.DataFrame(news_list).tail(10)}')
         
-        # 获取最新交易数据
-        latest_data = api.last('1m')
-        logger.info(f'获取到最新数据 {len(latest_data)} 条记录:\n{pd.DataFrame(latest_data).tail(10)}')
+        # # 获取最新交易数据
+        # latest_data = api.last('1m')
+        # logger.info(f'获取到最新数据 {len(latest_data)} 条记录:\n{pd.DataFrame(latest_data).tail(10)}')
         
-        # 获取所有历史数据
-        all_data = api.history('d',90)
-        logger.info(f"获取到历史数据{len(all_data)} 条记录:\n{pd.DataFrame(all_data).tail(10)}")
+        # # 获取所有历史数据
+        # all_data = api.history('d',90)
+        # logger.info(f"获取到历史数据{len(all_data)} 条记录:\n{pd.DataFrame(all_data).tail(10)}")
 
 if __name__ == '__main__':
     main()

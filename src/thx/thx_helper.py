@@ -335,3 +335,59 @@ def convert_datetime(time_str:str)->datetime:
         year = current_year
     
     return datetime.strptime(f"{year:04d}-{month:02d}-{day:02d} {hour:02d}:{minute:02d}", "%Y-%m-%d %H:%M")
+
+def extract_stock_data_hs(response):
+    """
+    从响应对象中提取股票指数数据
+    
+    参数:
+        response: 包含HTML内容的响应对象，需有text属性
+        
+    返回:
+        dict: 包含股票指数各类数据的字典
+    """
+    # 创建BeautifulSoup对象
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # 定位到board-hq容器并提取数据
+    board_hq = soup.find('div', class_='board-hq')
+    if not board_hq:
+        raise ValueError("未找到class为'board-hq'的div元素")
+    
+    # 提取指数名称和代码
+    h3_tag = board_hq.find('h3')
+    index_name = h3_tag.contents[0].strip()
+    index_code = h3_tag.find('span').get_text(strip=True)
+    
+    # 提取当前值
+    current_value = board_hq.find('span', class_='board-xj').get_text(strip=True)
+    
+    # 处理涨跌数据
+    zdf_text = board_hq.find('p', class_='board-zdf').get_text(strip=True)
+    zdf_parts = zdf_text.split()
+    change = zdf_parts[0]
+    
+    # 构建基础结果字典
+    result = {
+        '指数名称': index_name,
+        '指数代码': index_code,
+        '当前指数': float(current_value),
+        '涨跌': float(change),
+    }
+    
+    # 提取board-infos中的详细数据
+    board_infos = soup.find('div', class_='board-infos')
+    if not board_infos:
+        raise ValueError("未找到class为'board-infos'的div元素")
+    
+    dl_tags = board_infos.find_all('dl')
+    for dl in dl_tags:
+        dt_text = dl.find('dt').get_text(strip=True)
+        dd_text = dl.find('dd').get_text(strip=True)
+        # 根据内容判断是否转换为数值类型
+        if '%' in dd_text:
+            result[dt_text] = dd_text
+        else:
+            result[dt_text] = float(dd_text)
+    
+    return result
