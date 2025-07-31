@@ -247,7 +247,7 @@ def main():
     # 测试不同的股票代码格式
     test_codes = [
         # 'HK2018',
-        # 'HK0981',
+        'HK0981',
         '600519',
         # '000001'
     ]
@@ -261,21 +261,21 @@ def main():
         market_info = api.makert_hq()
         logger.info(f'获取到大盘信息:\n{market_info}')
 
-        # # 获取个股基本信息
-        # info = api.basic_info()
-        # logger.info(f'获取到基本信息:\n{info}')
+        # 获取个股基本信息
+        info = api.basic_info()
+        logger.info(f'获取到基本信息:\n{info}')
         
-        # # 获取新闻
-        # news_list = api.news()
-        # logger.info(f'获取到新闻 {len(news_list)} 条.\n{pd.DataFrame(news_list).tail(10)}')
+        # 获取新闻
+        news_list = api.news()
+        logger.info(f'获取到新闻 {len(news_list)} 条.\n{pd.DataFrame(news_list).tail(10)}')
         
-        # # 获取最新交易数据
-        # latest_data = api.last('1m')
-        # logger.info(f'获取到最新数据 {len(latest_data)} 条记录:\n{pd.DataFrame(latest_data).tail(10)}')
+        # 获取最新交易数据
+        latest_data = api.last('1m')
+        logger.info(f'获取到最新数据 {len(latest_data)} 条记录:\n{pd.DataFrame(latest_data).tail(10)}')
         
-        # # 获取所有历史数据
-        # all_data = api.history('d',90)
-        # logger.info(f"获取到历史数据{len(all_data)} 条记录:\n{pd.DataFrame(all_data).tail(10)}")
+        # 获取所有历史数据
+        all_data = api.history('d',90)
+        logger.info(f"获取到历史数据{len(all_data)} 条记录:\n{pd.DataFrame(all_data).tail(10)}")
 
 if __name__ == '__main__':
     main()
