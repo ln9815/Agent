@@ -30,11 +30,12 @@ class ThxApi:
     def __init__(self, code: str):
         self.full_code = self._normalize_stock_code(code)
         self.makert,self.code = self.full_code.split('_')[0],self.full_code.split('_')[-1]
-        logger.info(f"标准化股票代码: {self.full_code},市场代码: {self.makert}, 股票代码:{self.code}")
+        logger.debug(f"标准化股票代码: {self.full_code},市场代码: {self.makert}, 股票代码:{self.code}")
         self.headers = {
             **HEADERS,
             'Referer': f"{STOCK_PAGE_URL}/{self.full_code}/"
         }
+        self.isTrading = 0
     
     def _normalize_stock_code(self, code: str) -> str:
         """标准化股票代码格式"""
@@ -216,6 +217,7 @@ class ThxApi:
         url = f"{BASE_URL}/v6/time/{self.full_code}/defer/last.js"
         response = self._make_request(url)
         data = extract_json_from_js(response.text)
+        self.isTrading = data[self.full_code]['isTrading']
         all_data = process_stock_data_last(data[self.full_code])
 
         df = pd.DataFrame(all_data)
@@ -248,7 +250,7 @@ def main():
     test_codes = [
         # 'HK2018',
         'HK0981',
-        '600519',
+        # '600519',
         # '000001'
     ]
     

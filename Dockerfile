@@ -62,7 +62,7 @@ RUN apt-get update && apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ${WHEEL_FILE}
 
 # 构建参数
-ARG WHEEL_FILE="stock_tool-0.1.1-py3-none-any.whl"
+ARG WHEEL_FILE="stock_tool-0.1.2-py3-none-any.whl"
 # 复制wheel文件到容器中
 COPY ${WHEEL_FILE} .
 

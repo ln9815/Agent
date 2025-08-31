@@ -1,5 +1,6 @@
 from fastmcp import FastMCP
 from thx.thx_tool import ThxApi
+from tool.util import parse_stock_input
 
 mcp = FastMCP("My MCP Server")
 
@@ -46,6 +47,14 @@ async def stock_market(
     """获取股票市场数据"""
     thx =ThxApi(code)
     return thx.makert_hq()
+
+@mcp.tool
+async def query_input(
+    input: str
+):
+    """根据输入的字符串查询相关的股票代码，名称和所属市场"""
+    stock_info = parse_stock_input(input)
+    return stock_info
 
 def main():
     mcp.run(transport="streamable-http", host="0.0.0.0", port=8010, path="/mcp")
