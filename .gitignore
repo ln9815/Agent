@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+pyrightconfig.json
+
 # Distribution / packaging
 .Python
 build/
@@ -80,3 +82,5 @@ pyrightconfig.json
 *.json
 venv
 ipynb
+
+
