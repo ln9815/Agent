@@ -127,14 +127,14 @@ def send_email_via_126(
         发送成功返回True，失败返回False
     """
     SMTP_SERVER = "smtp.126.com"  
-    SMTP_PORT = 25  # 非SSL端口（SSL端口为465，需用SMTP_SSL连接）
+    SMTP_PORT = 465  # 非SSL端口（SSL端口为465，需用SMTP_SSL连接）
 
     try:
         msg = MIMEText(email_content, content_type, "utf-8")
         msg["From"] = formataddr((sender_name, sender_email))
         msg["To"] = ",".join(recipient_emails)
         msg["Subject"] = email_subject
-        smtp_conn = smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=10)  
+        smtp_conn = smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, timeout=10)
         smtp_conn.login(sender_email, sender_auth_code)
         smtp_conn.sendmail(sender_email, recipient_emails, msg.as_string())
         logger.info(f"邮件发送成功！发件人：{sender_email}，收件人：{recipient_emails}，主题：{email_subject}")

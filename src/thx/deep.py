@@ -64,8 +64,8 @@ def get_signal_from_deepseek(user_prompt):
                 {"role": "user", "content": user_prompt}]
 
     response = client.chat.completions.create(
-        # model="deepseek-reasoner",
-        model="deepseek-chat",
+        model="deepseek-reasoner",
+        # model="deepseek-chat",
         messages=messages,
         response_format={
             'type': 'json_object'
@@ -99,7 +99,7 @@ def check_stock_signal(stock_code,force_check=False):
         df_1d = api.history('d',90)
         df_5m = api.last('5m')
         user_prompt = generate_user_prompt(stock_code,df_1d,df_5m)
-        if api.isTrading == 0 or force_check:
+        if api.isTrading != 0 or force_check:
             current_signal = get_signal_from_deepseek(user_prompt)
             end_total = time.time()
             total_cost = round(end_total - start_total, 4)
