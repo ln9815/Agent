@@ -69,6 +69,14 @@ logs/
 .cache/
 *.cache
 *.pycache__/
+cache
 
 # ipynb文件
 .ipynb
+ipynb/
+
+pyrightconfig.json
+
+*.json
+venv
+ipynb
